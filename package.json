@@ -1,7 +1,7 @@
 {
-  "name": "venom-bot",
-  "version": "1.0.9",
-  "description": "Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp. ",
+  "name": "whatsBOTJS",
+  "version": "0.0.1",
+  "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -34,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/orkestral/venom.git"
+    "url": "git+https://github.com/HelioSilva/whatsBOTJS"
   },
   "keywords": [
     "whatsapp",
@@ -46,15 +46,15 @@
     "automatization",
     "puppeteer"
   ],
-  "author": "S2 Click",
+  "author": "Helio Silva",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/orkestral/venom/issues"
+    "url": "https://github.com/HelioSilva/whatsBOTJS/issues"
   },
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/orkestral/venom#readme",
+  "homepage": "https://github.com/HelioSilva/whatsBOTJS#readme",
   "devDependencies": {
     "@types/mime-types": "^2.1.0",
     "@types/node": "^13.11.1",
