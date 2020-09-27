@@ -39,41 +39,24 @@ export async function create(
     disableSpins: options ? options.disableSpins : '',
   });
 
-  console.log(`\n
-▗▄ ▄ ▄  ▄▄▄ ▄   ▄▄▄  ▗▄▄▖▗▄▖ ▗▄▖▄▄▄▖                           
- █▟█▙█  █▄▄ █   █    █ ▐█ █ █ █ █▄▄                           
- ▐█ █▌  █▄▄ ███ ▜▄▛▘ ▜▙▟▀ █   █ █▄▄▖                           
-                                                      
-▄▄▄▖       ▄▄▄▄▄▄▄▄▄▄▄▟▌▀▖     ▗▄▄▖                        
-▝▄ ▐▖     ▟▘▐         ▐▌ ▝▙    ▐  ▌ ▄▞▀▀▀▀▀▄▖ ▛▀▄        ▄▘▌
- ▝▄ ▐▖   ▐▘ ▟▖ ▜▀▀▀▀▀▌▐▖  ▝▚▖  ▐  ▙▞▘▗▞▀▀▀▚▖▝▙▛ ▝▜▖    ▗▀  ▌
-  ▀▖ ▜  ▗▘ ▟█  ▜     ▝▐▌ ▟▖ ▜▖ ▐  █ ▟▘     ▐▖▝█   ▝▙▖▗▞▘   ▌
-   ▜▖ ▜▄▛ ▐▜▝  ▝ ▘▜   ▝▌ ▟▀▖ ▝▙▐  ▌▗▌       ▜ ▙ ▐▙▖ ▀▘ ▗▟▘ ▌
-    ▚▖ ▀ ▗▌▝▜▖ ▜▀▀▀   ▐▌ ▟ ▝▙  ▜  ▙ ▙       ▛ ▙ ▐▌▝▄  ▟▀▐▘ ▌
-     ▚▖ ▗▛  ▐▖ ▜    ▗▛▜▌ ▟   ▚▖   █▖▝▙▖   ▗▛ ▟▛ ▐▖  ▀▞  ▐▖ ▌
-     ▝▚▗▛   ▐   ▘▘▘▘▘ ▐▌ ▟    ▀▄  ▌▝▙▖▝▀▀▀▘▗▞▘▛ ▐▌      ▐  ▌
-      ▝▛    ▝▀▝▘▘▘▘▘▘▀▝▘▘▀     ▝▙ ▌  ▝▀▘▘▀▀▘  ▀▘▀       ▝▀▝▘
-                                 ▚▌
-                                   \n`);
-
-  // Check for updates if needed
-  if (!updatesChecked) {
-    spinnies.add('venom-version-spinner', {
-      text: '🕷🕷🕷Checking for updates🕷🕷🕷',
-    });
-    checkVenomVersion(spinnies);
-    updatesChecked = true;
-  }
+  //TODO:  update verify package
+  // if (!updatesChecked) {
+  //   spinnies.add('venom-version-spinner', {
+  //     text: '🕷🕷🕷Checking for updates🕷🕷🕷',
+  //   });
+  //   checkVenomVersion(spinnies);
+  //   updatesChecked = true;
+  // }
 
   // Initialize whatsapp
   spinnies.add(`${session}-auth`, {
-    text: '🕷🕷🕷Waiting...🕷🕷🕷',
+    text: 'Loading WhatsBOTJS',
   });
 
   const mergedOptions = { ...defaultOptions, ...options };
   let waPage = await initWhatsapp(session, mergedOptions);
 
-  spinnies.update(`${session}-auth`, { text: '🕷🕷🕷Authenticating...🕷🕷🕷' });
+  spinnies.update(`${session}-auth`, { text: 'Authenticating...' });
   const authenticated = await isAuthenticated(waPage);
 
   // If not authenticated, show QR and wait for scan
@@ -84,7 +67,7 @@ export async function create(
     }
 
     await isInsideChat(waPage).toPromise();
-    spinnies.succeed(`${session}-auth`, { text: '🕷🕷🕷Authenticated🕷🕷🕷' });
+    spinnies.succeed(`${session}-auth`, { text: 'Authenticated' });
   } else {
     if (statusFind) {
       statusFind('notLogged');
@@ -119,14 +102,14 @@ export async function create(
 
     // Wait til inside chat
     await isInsideChat(waPage).toPromise();
-    spinnies.succeed(`${session}-auth`, { text: '🕷🕷🕷Compilation Mutation🕷🕷🕷' });
+    spinnies.succeed(`${session}-auth`, { text: 'Compilation Mutation...' });
   }
-  spinnies.add(`${session}-inject`, { text: '🕷🕷🕷Injecting Sibionte...🕷🕷🕷' });
+  spinnies.add(`${session}-inject`, { text: 'Injecting Sibionte...' });
   waPage = await injectApi(waPage);
   spinnies.succeed(`${session}-inject`, { text: 'Starting With Success!' });
 
   // Saving Token
-  spinnies.add(`${session}-inject`, { text: '🕷🕷🕷 Saving Token...  🕷🕷🕷' });
+  spinnies.add(`${session}-inject`, { text: 'Saving Token...' });
   if (true) {
     const localStorage = JSON.parse(
       await waPage.evaluate(() => {
@@ -144,7 +127,7 @@ export async function create(
           (err) => {
             if (err) {
               spinnies.fail(`${session}-inject`, {
-                text: '🕷🕷🕷 Failed to create folder tokens...  🕷🕷🕷',
+                text: 'Failed to create folder tokens...',
               });
             }
           }
@@ -160,12 +143,12 @@ export async function create(
           JSON.stringify({ WABrowserId, WASecretBundle, WAToken1, WAToken2 })
         );
         spinnies.succeed(`${session}-inject`, {
-          text: '🕷🕷🕷 Token saved successfully...  🕷🕷🕷',
+          text: 'Token saved successfully...',
         });
       }, 500);
     } catch (error) {
       spinnies.fail(`${session}-inject`, {
-        text: '🕷🕷🕷 Failed to save token...  🕷🕷🕷',
+        text: ' Failed to save token...',
       });
     }
   }
